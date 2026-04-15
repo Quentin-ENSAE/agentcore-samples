@@ -1,5 +1,4 @@
 google-adk
+litellm
 bedrock-agentcore
 bedrock-agentcore-starter-toolkit
-opentelemetry-sdk 
-opentelemetry-exporter-otlp-proto-http

@@ -1,0 +1,69 @@
+{
+  "$schema": "https://schema.agentcore.aws.dev/v1/agentcore.json",
+  "name": "ADKversion2",
+  "version": 1,
+  "managedBy": "CDK",
+  "tags": {
+    "agentcore:created-by": "agentcore-cli",
+    "agentcore:project-name": "ADKversion2"
+  },
+  "runtimes": [
+    {
+      "name": "ADKversion2",
+      "build": "CodeZip",
+      "entrypoint": "main.py",
+      "codeLocation": "app/ADKversion2/",
+      "runtimeVersion": "PYTHON_3_13",
+      "networkMode": "PUBLIC",
+      "envVars": [
+        {
+          "name": "DISABLE_ADOT_OBSERVABILITY",
+          "value": "true"
+        },
+        {
+          "name": "OPENLIT_ENABLED",
+          "value": "true"
+        },
+        {
+          "name": "OPENLIT_APP_NAME",
+          "value": "ADKversion2"
+        },
+        {
+          "name": "OPENLIT_ENVIRONMENT",
+          "value": "production"
+        },
+        {
+          "name": "OTEL_ENDPOINT",
+          "value": "http://<your-openlit-host>:4318"
+        },
+        {
+          "name": "OTEL_EXPORTER_OTLP_ENDPOINT",
+          "value": "http://<your-openlit-host>:4318"
+        },
+        {
+          "name": "OTEL_EXPORTER_OTLP_PROTOCOL",
+          "value": "http/protobuf"
+        },
+        {
+          "name": "OTEL_TRACES_EXPORTER",
+          "value": "otlp"
+        }
+      ],
+      "protocol": "HTTP",
+      "instrumentation": {
+        "enableOtel": true
+      }
+    }
+  ],
+  "memories": [],
+  "credentials": [
+    {
+      "authorizerType": "ApiKeyCredentialProvider",
+      "name": "GOOGLE_API_KEY"
+    }
+  ],
+  "evaluators": [],
+  "onlineEvalConfigs": [],
+  "agentCoreGateways": [],
+  "policyEngines": []
+}

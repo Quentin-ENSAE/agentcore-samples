@@ -1,0 +1,22 @@
+{
+  "targets": {
+    "default": {
+      "resources": {
+        "runtimes": {
+          "ADKversion2": {
+            "runtimeId": "ADKversion2_ADKversion2-zXJOAE5eGL",
+            "runtimeArn": "arn:aws:bedrock-agentcore:eu-west-1:581659430635:runtime/ADKversion2_ADKversion2-zXJOAE5eGL",
+            "roleArn": "arn:aws:iam::581659430635:role/AgentCore-ADKversion2-def-ApplicationAgentADKversio-XZlUl0XeDN5f"
+          }
+        },
+        "credentials": {
+          "GOOGLE_API_KEY": {
+            "credentialProviderArn": "arn:aws:bedrock-agentcore:eu-west-1:581659430635:token-vault/default/apikeycredentialprovider/GOOGLE_API_KEY"
+          }
+        },
+        "stackName": "AgentCore-ADKversion2-default",
+        "identityKmsKeyArn": "arn:aws:kms:eu-west-1:581659430635:key/5cdbc833-bdbf-4a46-9b4d-4af1abf507be"
+      }
+    }
+  }
+}

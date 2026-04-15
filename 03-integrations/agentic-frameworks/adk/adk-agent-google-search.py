@@ -1,4 +1,5 @@
 from google.adk.agents import Agent
+from google.adk.models.lite_llm import LiteLlm
 from google.adk.runners import Runner
 from google.adk.sessions import InMemorySessionService
 from google.adk.tools import google_search
@@ -10,12 +11,15 @@ import os
 
 APP_NAME="google_search_agent"
 USER_ID="user1234"
+BEDROCK_MODEL_ID = os.getenv(
+    "BEDROCK_MODEL_ID",
+    "bedrock/us.anthropic.claude-3-5-haiku-20241022-v1:0",
+)
 
 # Agent Definition
-# Add your GEMINI_API_KEY 
 root_agent = Agent(
-    model="gemini-2.0-flash", 
-    name="openai_agent",
+    model=LiteLlm(model=BEDROCK_MODEL_ID),
+    name="bedrock_agent",
     description="Agent to answer questions using Google Search.",
     instruction="I can answer your questions by searching the internet. Just ask me anything!",
     # google_search is a pre-built tool which allows the agent to perform Google searches.
@@ -34,9 +38,10 @@ async def call_agent_async(query, user_id, session_id):
     content = types.Content(role='user', parts=[types.Part(text=query)])
     session, runner = await setup_session_and_runner(user_id, session_id)
     events = runner.run_async(user_id=user_id, session_id=session_id, new_message=content)
+    final_response = ""
 
     async for event in events:
-        if event.is_final_response():
+        if event.is_final_response() and event.content and event.content.parts:
             final_response = event.content.parts[0].text
             print("Agent Response: ", final_response)
     

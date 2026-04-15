@@ -4,7 +4,7 @@
 |---------------------|------------------------------------------------------------------------------|
 | Agent type          | Synchronous                                                                 |
 | Agentic Framework   | Google ADK                                                                    |
-| LLM model           | Gemini 2.0 Flash                                                   |
+| LLM model           | Amazon Bedrock model via LiteLLM (configurable)                            |
 | Components          | AgentCore Runtime                                |
 | Example complexity  | Easy                                                                 |
 | SDK used            | Amazon Bedrock AgentCore Python SDK                                           |
@@ -16,7 +16,7 @@ This example demonstrates how to integrate a Google ADK agent with Amazon Bedroc
 - Python 3.10+
 - [uv](https://github.com/astral-sh/uv) - Fast Python package installer and resolver
 - AWS account with Bedrock access
-- Google AI API key (for the Gemini model)
+- AWS credentials configured locally (for Bedrock model invocation)
 
 ## Setup Instructions
 
@@ -44,16 +44,23 @@ The `adk_agent_google_search.py` file contains a Google ADK agent with Google Se
 
 ```python
 from google.adk.agents import Agent
+from google.adk.models.lite_llm import LiteLlm
 from google.adk.runners import Runner
 from google.adk.sessions import InMemorySessionService
 from google.adk.tools import google_search
 from google.genai import types
 import asyncio
+import os
 
 # Agent Definition
+BEDROCK_MODEL_ID = os.getenv(
+    "BEDROCK_MODEL_ID",
+    "bedrock/us.anthropic.claude-3-5-haiku-20241022-v1:0",
+)
+
 root_agent = Agent(
-    model="gemini-2.0-flash", 
-    name="openai_agent",
+    model=LiteLlm(model=BEDROCK_MODEL_ID),
+    name="bedrock_agent",
     description="Agent to answer questions using Google Search.",
     instruction="I can answer your questions by searching the internet. Just ask me anything!",
     # google_search is a pre-built tool which allows the agent to perform Google searches.
@@ -102,15 +109,15 @@ app.run()
 agentcore configure -e adk_agent_google_search.py
 
 
-# Deploy your agent with Gemini API key
-agentcore launch --env GEMINI_API_KEY=your_api_key_here
+# Deploy your agent (optional: select Bedrock model)
+agentcore launch --env BEDROCK_MODEL_ID="global.anthropic.claude-sonnet-4-5-20250929-v1:0"
 ```
 
 ### 5. Testing Your Agent Locally
 
 Launch locally to test:
 ```bash
-agentcore launch -l --env GEMINI_API_KEY=your_api_key_here
+agentcore launch -l --env BEDROCK_MODEL_ID=bedrock/us.anthropic.claude-3-5-haiku-20241022-v1:0
 ```
 
 Then invoke the agent:
@@ -143,5 +150,5 @@ The agent is wrapped with the Bedrock AgentCore framework, which handles:
 ## Additional Resources
 
 - [Google ADK Documentation]([https://github.com/google/adk](https://google.github.io/adk-docs/))
-- [Gemini API Documentation](https://ai.google.dev/docs)
+- [Bedrock Model IDs and Inference Profiles](https://docs.aws.amazon.com/bedrock/latest/userguide/models-supported.html)
 - [Bedrock AgentCore Documentation](https://docs.aws.amazon.com/bedrock/latest/userguide/agents-core.html)
