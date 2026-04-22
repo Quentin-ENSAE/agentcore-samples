@@ -1,0 +1,53 @@
+{
+  "$schema": "https://schema.agentcore.aws.dev/v1/agentcore.json",
+  "name": "ADKvTROIS",
+  "version": 1,
+  "managedBy": "CDK",
+  "tags": {
+    "agentcore:created-by": "agentcore-cli",
+    "agentcore:project-name": "ADKvTROIS"
+  },
+  "runtimes": [
+    {
+      "name": "ADKvTROIS",
+      "build": "CodeZip",
+      "entrypoint": "main.py",
+      "codeLocation": "app/ADKvTROIS/",
+      "runtimeVersion": "PYTHON_3_13",
+      "networkMode": "PUBLIC",
+      "protocol": "HTTP",
+      "instrumentation": {
+        "enableOtel": true
+      },
+      "envVars": [
+        {
+          "name": "OTEL_INSTRUMENTATION_GENAI_CAPTURE_MESSAGE_CONTENT",
+          "value": "true"
+        },
+        {
+          "name": "ADK_CAPTURE_MESSAGE_CONTENT_IN_SPANS",
+          "value": "true"
+        },
+        {
+          "name": "DISABLE_ADOT_OBSERVABILITY",
+          "value": "false"
+        },
+        {
+          "name": "ADK_LOG_LEVEL",
+          "value": "DEBUG"
+        }
+      ]
+    }
+  ],
+  "memories": [],
+  "credentials": [
+    {
+      "authorizerType": "ApiKeyCredentialProvider",
+      "name": "GOOGLE_API_KEY"
+    }
+  ],
+  "evaluators": [],
+  "onlineEvalConfigs": [],
+  "agentCoreGateways": [],
+  "policyEngines": []
+}

@@ -1,0 +1,17 @@
+{
+  "targets": {
+    "default": {
+      "resources": {
+        "runtimes": {
+          "ADKvTROIS": {
+            "runtimeId": "ADKvTROIS_ADKvTROIS-UJUo9l34q3",
+            "runtimeArn": "arn:aws:bedrock-agentcore:eu-west-1:581659430635:runtime/ADKvTROIS_ADKvTROIS-UJUo9l34q3",
+            "roleArn": "arn:aws:iam::581659430635:role/AgentCore-ADKvTROIS-defau-ApplicationAgentADKvTROIS-FxwKQNiDrWpR"
+          }
+        },
+        "stackName": "AgentCore-ADKvTROIS-default",
+        "identityKmsKeyArn": "arn:aws:kms:eu-west-1:581659430635:key/5cdbc833-bdbf-4a46-9b4d-4af1abf507be"
+      }
+    }
+  }
+}
